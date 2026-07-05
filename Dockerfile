@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     graphicsmagick \
     git \
+    openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g n8n n8n-nodes-puppeteer --omit=dev
