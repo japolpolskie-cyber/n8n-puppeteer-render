@@ -1,15 +1,15 @@
-FROM n8nio/n8n:latest-debian
-
-USER root
+FROM node:20-bookworm-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
+    graphicsmagick \
     && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g n8n n8n-nodes-puppeteer --omit=dev
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-RUN mkdir -p /home/node/.n8n/nodes && \
-    npm install --prefix /home/node/.n8n n8n-nodes-puppeteer
+EXPOSE 5678
 
-USER node
+CMD ["n8n", "start"]
